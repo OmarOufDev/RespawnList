@@ -5,8 +5,9 @@ export default class Utilities {
     // checks that the value exists.
     exists() {
         if (!this.value) {
-            throw new TypeError(` ${this.name} is null `);
+            throw new TypeError(`${this.name} is null`);
         }
+        return this;
     }
 
     // change value to boolean
@@ -18,7 +19,7 @@ export default class Utilities {
         } else if ( this.value.toLowerCase() === "false" || this.value === "0") {
             return false;
         } else {
-            throw new TypeError(` ${this.name} is not a boolean `);
+            throw new TypeError(`${this.name} is not a boolean`);
         }
     }
 
@@ -26,7 +27,7 @@ export default class Utilities {
     isHour() {
         this.value = Number(this.value);
         if (this.value === undefined || this.value === null || this.value < 0 || this.value > 23) {
-            throw new TypeError(` ${this.name} is Not Hour`);
+            throw new TypeError(`${this.name}: ${this.value} is not a valid Hour value`);
         }
     }
 

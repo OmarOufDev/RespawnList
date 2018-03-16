@@ -38,22 +38,6 @@ describe("RespawnList", () => {
         });
     });
 
-    describe("addOptionsToEntry", () => {
-        const respList = new RespawnListLogic();
-
-        it("Should throw an error if hour value is not valid", () => {
-            assert.throws(() => {
-                respList.addEntry("1", "1");
-                respList.addOptionsToEntry("1", {
-                maxTime: -1});
-            }, (err) => {
-                if (err instanceof TypeError) {
-                    assert.equal(err.message, ` maxTime is Not Hour`);
-                    return true;
-            }});
-        });
-    });
-
     describe("configuration", () => {
         const respList = new RespawnListLogic();
         respList.addEntry("1", "1");
@@ -62,7 +46,6 @@ describe("RespawnList", () => {
         });
         respList.enqeueToEntry("1", "u1");
         const copy = respList.getEntries();
-        console.log("coppy : " , copy);
 
         before(() => {
             respList.saveConfigration();
