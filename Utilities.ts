@@ -35,10 +35,8 @@ export class Utilities {
     }
 
     isObjectEmpty() {
-        console.log(this.value);
         if (Object.keys(this.value).length === 0) {
             throw new CustomError(ErrorCategory.InputError, `${this.name} is empty doesnt have any properties`);
         }
     }
-
 }

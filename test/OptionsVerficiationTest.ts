@@ -7,7 +7,7 @@ describe("OptionsVerification", () => {
     describe("validate()", () => {
         it("throw an error as options was empty", () => {
             assert.throws( () => {
-                console.log(new OptionsVerification({}).validate());
+                new OptionsVerification({}).validate();
             }, (err) => {
             if (err instanceof CustomError) {
             const e = err as CustomError;
