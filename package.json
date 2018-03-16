@@ -21,6 +21,9 @@
     "compile": "tsc",
     "test": "npm run compile && mocha test"
   },
+  "repository": {
+    "url": "https://github.com/OmarOufDev/RespawnList"
+  },
   "author": "Omar Ouf",
   "license": "MIT"
 }
