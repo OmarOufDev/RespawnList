@@ -3,7 +3,7 @@ import { CustomError, ErrorCategory } from "./CustomError";
 import { IRespawnListLogic } from "./IRespawnListLogic";
 import { RespawnListModel, RespawnListOptionsModel } from "./Models";
 import { OptionsVerification } from "./OptionsVerification";
-import Utilities from "./Utilities";
+import { Utilities } from "./Utilities";
 
 /**
  * Class Responsible for implementing the business logic of IRespawnList
@@ -28,12 +28,17 @@ export class RespawnListLogic implements IRespawnListLogic {
      */
     public addEntry(id: string, name: string) {
         new Utilities(id, "id").exists();
+        let exists = true;
         try {
-            const [entry, index] = this.getEntry(id);
+            this.getEntry(id);
         } catch (e) {
             if (!(e instanceof CustomError) || e.ErrorCategory !== ErrorCategory.ResourceNotFound ) {
                 throw e;
             }
+            exists = false;
+        }
+        if (exists) {
+            throw new CustomError(ErrorCategory.Conflict, "Entry with given id already exists");
         }
         let newEntry = null;
         if (this.defaultOptions) {

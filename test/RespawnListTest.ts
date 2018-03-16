@@ -6,19 +6,36 @@ import { RespawnListLogic } from "../RespawnListLogic";
 describe("RespawnList", () => {
 
     describe("addEntry", () => {
-        const respList = new RespawnListLogic();
 
         it("Should return added entry if successful", () => {
+            const respList = new RespawnListLogic();
             const result = respList.addEntry("0", "entry");
             const expectedResult = new RespawnListModel("0", "entry");
-            assert.deepEqual(result, expectedResult);
+            assert.deepStrictEqual(result, expectedResult);
         });
 
-        it("Should throw a type error as id is undefined", () => {
-            assert.throws(() => {
-                  respList.addEntry(undefined, "ted");
-            }, TypeError, ` ted is null `);
+        // it("Should return added entry with default options", () => {
+        //     const respList = new RespawnListLogic();
+        //     respList.setDefaultOptions({enabled: false});
+        //     const result = respList.addEntry("0", "entry");
+        //     const expectedResult = new RespawnListModel("0", "entry");
+        //     assert.deepStrictEqual(result, expectedResult);
+        // });
+
+        it("throw an error as entry with id exists ", () => {
+            const respList = new RespawnListLogic();
+            respList.addEntry("0", "entryx");
+            assert.throws( () => {
+                respList.addEntry("0", "entryy");
+            }, (err) => {
+                if (err instanceof CustomError) {
+                    const e = err as CustomError;
+                    assert.equal(e.ErrorCategory, ErrorCategory.Conflict);
+                    assert.equal(e.ErrorMessage, "Entry with given id already exists");
+                    return true;
+                }});
         });
+
     });
 
     describe("getEntry", () => {

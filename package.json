@@ -6,7 +6,6 @@
     "test": "test"
   },
   "dependencies": {
-    "readline-sync": "^1.4.9",
     "typescript": "^2.7.2"
   },
   "devDependencies": {
@@ -18,8 +17,8 @@
     "tslint": "^5.9.1"
   },
   "scripts": {
-    "compile": "tsc",
-    "test": "npm run compile && mocha test"
+    "build": "tsc",
+    "test": "npm run build && mocha --recursive ./test"
   },
   "repository": {
     "url": "https://github.com/OmarOufDev/RespawnList"

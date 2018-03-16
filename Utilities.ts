@@ -1,4 +1,7 @@
-export default class Utilities {
+import { CustomError } from ".";
+import { ErrorCategory } from "./CustomError";
+
+export class Utilities {
     constructor(private value: any, private name: string) {
     }
 
@@ -28,6 +31,13 @@ export default class Utilities {
         this.value = Number(this.value);
         if (this.value === undefined || this.value === null || this.value < 0 || this.value > 23) {
             throw new TypeError(`${this.name}: ${this.value} is not a valid Hour value`);
+        }
+    }
+
+    isObjectEmpty() {
+        console.log(this.value);
+        if (Object.keys(this.value).length === 0) {
+            throw new CustomError(ErrorCategory.InputError, `${this.name} is empty doesnt have any properties`);
         }
     }
 

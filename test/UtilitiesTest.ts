@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import Utilities from "../Utilities";
+import { Utilities } from "../Utilities";
 
 /**
  * test for all of the utilities functions.

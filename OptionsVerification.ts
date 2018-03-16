@@ -1,4 +1,6 @@
-import Utilities from "./Utilities";
+import { CustomError, ErrorCategory } from "./CustomError";
+import { Utilities } from "./Utilities";
+
 export class OptionsVerification {
 
     constructor(private options: any) {
@@ -17,6 +19,8 @@ export class OptionsVerification {
         if (this.options.sameUserQueue) {
             newModel.sameUserQueue = new Utilities(this.options.sameUserQueue, "sameUserQueue").toBoolean();
         }
+
+        new Utilities(newModel, "options").isObjectEmpty();
         return newModel;
     }
 }
