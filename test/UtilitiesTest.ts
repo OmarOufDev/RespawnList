@@ -1,7 +1,11 @@
 import * as assert from "assert";
 import Utilities from "../Utilities";
 
+/**
+ * test for all of the utilities functions.
+ */
 describe("Utilities Tests", () => {
+
     describe("Exists()", () => {
         it("throw an error if value is null", () => {
             const name = "id";
@@ -18,6 +22,7 @@ describe("Utilities Tests", () => {
             }, TypeError , `${name} is null` );
         });
     });
+
     describe("toBoolean()", () => {
         it("throw an error if any other value than 1,0 true,false ( even mixcases )", () => {
             const name = "boolean";
@@ -26,6 +31,7 @@ describe("Utilities Tests", () => {
             }, TypeError , ` ${name} is not a boolean `);
         });
     });
+
     describe("isHour()", () => {
         it("throw an error if hour < 0", () => {
             const name = "hour";
@@ -42,4 +48,5 @@ describe("Utilities Tests", () => {
             }, TypeError , `${name}: ${value} is not a valid Hour value`);
         });
     });
+
 });
