@@ -2,7 +2,12 @@ import { CustomError } from ".";
 import { ErrorCategory } from "./CustomError";
 
 export class Utilities {
-    constructor(private value: any, private name: string) {
+    private value: any;
+    private name: string;
+    for(value: any, name: string) {
+        this.value = value;
+        this.name = name;
+        return this;
     }
 
     // checks that the value exists.
@@ -15,7 +20,6 @@ export class Utilities {
 
     // change value to boolean
     toBoolean() {
-        this.exists();
         this.value = String(this.value);
         if (this.value.toLowerCase() === "true"  || this.value === "1") {
             return true;

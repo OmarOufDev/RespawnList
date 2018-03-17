@@ -22,7 +22,20 @@ describe("OptionsVerification", () => {
             };
             const result = new OptionsVerification(options).validate();
             assert.deepStrictEqual({
-                enabled: new Utilities(options.enabled, "enabled").toBoolean(),
+                enabled: new Utilities().for(options.enabled, "enabled").toBoolean(),
+            }, result);
+        });
+        it(" fully populate the options ", () => {
+            const options = {
+                enabled: "true",
+                maxTime: 4,
+                sameUserQueue: "false",
+            };
+            const result = new OptionsVerification(options).validate();
+            assert.deepStrictEqual({
+                enabled: new Utilities().for(options.enabled, "enabled").exists().toBoolean(),
+                maxTime: new Date(0, 0, 0, 4, 0, 0, 0),
+                sameUserQueue: new Utilities().for(options.sameUserQueue, "sameUserQueue").exists().toBoolean(),
             }, result);
         });
     });

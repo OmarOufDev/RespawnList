@@ -27,7 +27,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param id of the entry.
      */
     public addEntry(id: string, name: string) {
-        new Utilities(id, "id").exists();
+        new Utilities().for(id, "id").exists();
         let exists = true;
         try {
             this.getEntry(id);
@@ -55,7 +55,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param id
      */
     public deleteEntry(id: string) {
-        new Utilities(id, "id").exists();
+        new Utilities().for(id, "id").exists();
         const [entry, index] = this.getEntry(id);
         this.storage.splice(index, 1);
     }
@@ -65,7 +65,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param id
      */
     public getEntry(id: string): [RespawnListModel, number] {
-        new Utilities(id, "id").exists();
+        new Utilities().for(id, "id").exists();
         const index = this.storage.findIndex(t => t.id === id);
         if (index === -1) {
             throw new CustomError(ErrorCategory.ResourceNotFound, `Entry with ${id} doesnt exist`);
@@ -108,7 +108,7 @@ export class RespawnListLogic implements IRespawnListLogic {
     }
 
     addGlobalOptions(options: any, overRide: boolean = false) {
-        new Utilities(options, "options").exists();
+        new Utilities().for(options, "options").exists();
         this.storage.map( (e) => {
             this.addOptionsToEntry(e.id, options, overRide);
         });
@@ -307,8 +307,6 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param options new option payload.
      * @returns the updated default options.
      */
-    updateDefaultOptions(options: RespawnListOptionsModel):
-    RespawnListOptionsModel;
     updateDefaultOptions(options: RespawnListOptionsModel): RespawnListOptionsModel {
         const validatedOptions = new OptionsVerification(options).validate();
         if (validatedOptions.enabled) {
