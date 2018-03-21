@@ -1,9 +1,9 @@
 import * as fs from "fs";
+import { bottle } from "./bottlemanager";
 import { CustomError, ErrorCategory } from "./CustomError";
 import { IRespawnListLogic } from "./IRespawnListLogic";
 import { RespawnListModel, RespawnListOptionsModel } from "./Models";
 import { OptionsVerification } from "./OptionsVerification";
-import { Utilities } from "./Utilities";
 
 /**
  * Class Responsible for implementing the business logic of IRespawnList
@@ -16,6 +16,8 @@ export class RespawnListLogic implements IRespawnListLogic {
     private intervalId: any;
     private pauseTime: Date;
     private defaultOptions: RespawnListOptionsModel = null;
+    private utilities = bottle.container.Utilities;
+
 
     /** creates an instance of the class */
     constructor() {
@@ -27,7 +29,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param id of the entry.
      */
     public addEntry(id: string, name: string) {
-        new Utilities().for(id, "id").exists();
+        this.utilities.for(id, "id").exists();
         let exists = true;
         try {
             this.getEntry(id);
@@ -55,7 +57,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param id
      */
     public deleteEntry(id: string) {
-        new Utilities().for(id, "id").exists();
+        this.utilities.for(id, "id").exists();
         const [entry, index] = this.getEntry(id);
         this.storage.splice(index, 1);
     }
@@ -65,7 +67,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param id
      */
     public getEntry(id: string): [RespawnListModel, number] {
-        new Utilities().for(id, "id").exists();
+        this.utilities.for(id, "id").exists();
         const index = this.storage.findIndex(t => t.id === id);
         if (index === -1) {
             throw new CustomError(ErrorCategory.ResourceNotFound, `Entry with ${id} doesnt exist`);
@@ -108,7 +110,7 @@ export class RespawnListLogic implements IRespawnListLogic {
     }
 
     addGlobalOptions(options: any, overRide: boolean = false) {
-        new Utilities().for(options, "options").exists();
+        this.utilities.for(options, "options").exists();
         this.storage.map( (e) => {
             this.addOptionsToEntry(e.id, options, overRide);
         });

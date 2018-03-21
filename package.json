@@ -6,6 +6,7 @@
     "test": "test"
   },
   "dependencies": {
+    "bottlejs": "^1.7.0",
     "typescript": "^2.7.2"
   },
   "devDependencies": {

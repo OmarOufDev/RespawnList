@@ -1,12 +1,12 @@
+import { bottle } from "./bottlemanager";
 import { CustomError, ErrorCategory } from "./CustomError";
-import { Utilities } from "./Utilities";
 
 export class OptionsVerification {
 
     constructor(private options: any) {
     }
     validate() {
-        const utilities = new Utilities();
+        const utilities = bottle.container.Utilities;
         utilities.for(this.options, "options").exists();
         const newModel: any = {};
         if (this.options.enabled) {
