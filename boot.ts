@@ -55,6 +55,17 @@ class Startup {
             mainRouter.use(r.getPath,r.getRouter);
         });
 
+        mainRouter.use(function errorHandler(err,req, res, next) {
+            let errResponse: any = {};
+            if(err && err instanceof CustomError) {
+                errResponse.status = 500;
+                errResponse.error = "Internal Server Error";
+                console.log(err.ErrorCategory, "\t", err.errorMessage);
+                res.status(errResponse.status).json(errResponse.error).end();
+                return;
+            }
+        });
+
         // Handles if Route is not found, sends 404 request.
         server.get("*", (req, res) => {
             res.status(404).json("Route Doesnt Exist").end();
@@ -63,6 +74,7 @@ class Startup {
 }
 import { IBaseRouter } from "./Controllers/IBaseRouter";
 import { RespawnListRouter } from "./Controllers/RespawnListRouter";
+import { CustomError } from "./Errors/CustomError";
 
 try {
     Startup.main();
