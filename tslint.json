@@ -9,7 +9,8 @@
         "max-line-length": false,
         "arrow-parens": false,
         "member-ordering": false,
-        "member-access": false
+        "member-access": false,
+        "ordered-imports": false,
     },
     "rulesDirectory": []
 }

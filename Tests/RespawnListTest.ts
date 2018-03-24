@@ -1,7 +1,7 @@
 import * as assert from "assert";
-import { CustomError, ErrorCategory } from "../CustomError";
+import { CustomError, ErrorCategory } from "../Errors/CustomError";
 import { RespawnListModel } from "../Models";
-import { RespawnListLogic } from "../RespawnListLogic";
+import { RespawnListLogic } from "../Services/RespawnListLogic";
 
 describe("RespawnList", () => {
 

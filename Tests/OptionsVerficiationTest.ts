@@ -1,7 +1,7 @@
 import * as assert from "assert";
-import { CustomError, ErrorCategory } from "../CustomError";
-import { OptionsVerification } from "../OptionsVerification";
-import { Utilities } from "../Utilities";
+import { CustomError, ErrorCategory } from "../Errors/CustomError";
+import { OptionsVerification } from "../Services/OptionsVerification";
+import { Utilities } from "../MISC/Utilities";
 
 describe("OptionsVerification", () => {
     describe("validate()", () => {

@@ -1,25 +1,27 @@
 import * as assert from "assert";
-import { CustomError, ErrorCategory } from "../";
-import { Utilities } from "../Utilities";
+import { CustomError, ErrorCategory } from "../Errors/CustomError";
+import { Utilities } from "../MISC/Utilities";
+import { bottle } from "../BaseLayer/BottleManager";
 
 /**
  * test for all of the utilities functions.
  */
 describe("Utilities Tests", () => {
+    const utilities: Utilities = bottle.container.Utilities;
 
     describe("Exists()", () => {
         it("throw an error if value is null", () => {
             const name = "id";
             const value = null;
             assert.throws( () => {
-                new Utilities().for(value, name).exists();
+                utilities.for(value, name).exists();
             }, TypeError , `${name} is null` );
         });
         it("throw an error if value is undefined", () => {
             const name = "id";
             const value = undefined;
             assert.throws( () => {
-                new Utilities().for(value, name).exists();
+                utilities.for(value, name).exists();
             }, TypeError , `${name} is null` );
         });
     });
@@ -28,7 +30,7 @@ describe("Utilities Tests", () => {
         it("throw an error if any other value than 1,0 true,false ( even mixcases )", () => {
             const name = "boolean";
             assert.throws( () => {
-            new Utilities().for("x", "boolean").toBoolean();
+                utilities.for("x", "boolean").toBoolean();
             }, TypeError , ` ${name} is not a boolean `);
         });
     });
@@ -38,14 +40,14 @@ describe("Utilities Tests", () => {
             const name = "hour";
             const value = -1;
             assert.throws( () => {
-                new Utilities().for(value, name).exists().isHour();
+                utilities.for(value, name).exists().isHour();
             }, TypeError , `${name}: ${value} is not a valid Hour value`);
         });
         it("throw an error if hour > 23", () => {
             const name = "hour";
             const value = 24;
             assert.throws( () => {
-                new Utilities().for(value, name).exists().isHour();
+                utilities.for(value, name).exists().isHour();
             }, TypeError , `${name}: ${value} is not a valid Hour value`);
         });
     });
@@ -54,7 +56,7 @@ describe("Utilities Tests", () => {
         it("throw an error if object is empty", () => {
             const name = "emptyObject";
             const value = {};
-            const utilities = new Utilities().for(value, name);
+            utilities.for(value, name);
             assert.throws( () => {
                 utilities.exists().isObjectEmpty();
             }, (err) => {

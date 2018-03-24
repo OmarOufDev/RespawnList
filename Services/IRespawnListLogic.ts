@@ -1,4 +1,4 @@
-import { RespawnListModel, RespawnListOptionsModel } from "./Models";
+import { RespawnListModel, RespawnListOptionsModel } from "../Models";
 
 export interface IRespawnListLogic {
 

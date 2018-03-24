@@ -1,5 +1,5 @@
-import { bottle } from "./bottlemanager";
-import { CustomError, ErrorCategory } from "./CustomError";
+import { bottle } from "../BaseLayer/BottleManager";
+import { CustomError, ErrorCategory } from "../Errors/CustomError";
 
 export class OptionsVerification {
 

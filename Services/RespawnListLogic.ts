@@ -1,9 +1,8 @@
 import * as fs from "fs";
-import { bottle } from "./bottlemanager";
-import { CustomError, ErrorCategory } from "./CustomError";
+import { bottle } from "../BaseLayer/BottleManager";
+import { CustomError, ErrorCategory } from "../Errors/CustomError";
 import { IRespawnListLogic } from "./IRespawnListLogic";
-import { RespawnListModel, RespawnListOptionsModel } from "./Models";
-import { OptionsVerification } from "./OptionsVerification";
+import { RespawnListModel, RespawnListOptionsModel } from "../Models";
 
 /**
  * Class Responsible for implementing the business logic of IRespawnList
@@ -16,8 +15,10 @@ export class RespawnListLogic implements IRespawnListLogic {
     private intervalId: any;
     private pauseTime: Date;
     private defaultOptions: RespawnListOptionsModel = null;
-    private utilities = bottle.container.Utilities;
 
+    // Injected Components
+    private utilities = bottle.container.Utilities;
+    private optionsVerification = bottle.container.OptionsVerification;
 
     /** creates an instance of the class */
     constructor() {
@@ -89,7 +90,8 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @param options
      */
     public addOptionsToEntry(id: string , options: any, overRide: boolean = false) {
-        const validatedOptions = new OptionsVerification(options).validate();
+        console.log(bottle.list());
+        const validatedOptions = new this.optionsVerification(options).validate();
         const [entry, index] = this.getEntry(id);
         if (!entry) {
             throw new CustomError(ErrorCategory.ResourceNotFound, "Entry cannot be retrieved if it doesnt exist");
@@ -300,7 +302,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @return the updated default options.
      */
     setDefaultOptions(options: RespawnListOptionsModel): RespawnListOptionsModel {
-        return this.defaultOptions = new OptionsVerification(options).validate();
+        return this.defaultOptions = new this.optionsVerification(options).validate();
     }
 
     /**
@@ -310,7 +312,7 @@ export class RespawnListLogic implements IRespawnListLogic {
      * @returns the updated default options.
      */
     updateDefaultOptions(options: RespawnListOptionsModel): RespawnListOptionsModel {
-        const validatedOptions = new OptionsVerification(options).validate();
+        const validatedOptions = new this.optionsVerification(options).validate();
         if (validatedOptions.enabled) {
             this.defaultOptions.enabled = validatedOptions.enabled;
         }

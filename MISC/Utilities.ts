@@ -1,5 +1,4 @@
-import { CustomError } from ".";
-import { ErrorCategory } from "./CustomError";
+import { CustomError, ErrorCategory } from "../Errors/CustomError";
 
 export class Utilities {
     private value: any;
