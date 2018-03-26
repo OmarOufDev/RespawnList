@@ -18,7 +18,7 @@ bottle.service("RespawnListController", RespawnListController);
 
 bottle.service("Utilities", Utilities);
 bottle.factory("OptionsVerification", () => OptionsVerification);
-bottle.service("RespawnListLogic", RespawnListLogic);
+bottle.service("RespawnListLogic", RespawnListLogic, "OptionsVerification");
 
 export { bottle };
 

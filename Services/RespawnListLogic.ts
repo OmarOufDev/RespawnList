@@ -3,6 +3,7 @@ import { bottle } from "../BaseLayer/BottleManager";
 import { CustomError, ErrorCategory } from "../Errors/CustomError";
 import { IRespawnListLogic } from "./IRespawnListLogic";
 import { RespawnListModel, RespawnListOptionsModel } from "../Models";
+import { OptionsVerification } from "./_Services.index";
 
 /**
  * Class Responsible for implementing the business logic of IRespawnList
@@ -18,10 +19,11 @@ export class RespawnListLogic implements IRespawnListLogic {
 
     // Injected Components
     private utilities = bottle.container.Utilities;
-    private optionsVerification = bottle.container.OptionsVerification;
+    private optionsVerification;
 
     /** creates an instance of the class */
-    constructor() {
+    constructor(optionsVerification: any) {
+        this.optionsVerification = optionsVerification;
         this.storage = [];
     }
 

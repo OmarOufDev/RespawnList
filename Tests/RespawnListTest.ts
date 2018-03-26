@@ -2,13 +2,14 @@ import * as assert from "assert";
 import { CustomError, ErrorCategory } from "../Errors/CustomError";
 import { RespawnListModel } from "../Models";
 import { RespawnListLogic } from "../Services/RespawnListLogic";
+import { bottle } from "../BaseLayer/BottleManager";
 
 describe("RespawnList", () => {
 
     describe("addEntry", () => {
 
         it("Should return added entry if successful", () => {
-            const respList = new RespawnListLogic();
+            const respList = bottle.container.RespawnListLogic;
             const result = respList.addEntry("0", "entry");
             const expectedResult = new RespawnListModel("0", "entry");
             assert.deepStrictEqual(result, expectedResult);
@@ -23,7 +24,7 @@ describe("RespawnList", () => {
         // });
 
         it("throw an error as entry with id exists ", () => {
-            const respList = new RespawnListLogic();
+            const respList = bottle.container.RespawnListLogic;
             respList.addEntry("0", "entryx");
             assert.throws( () => {
                 respList.addEntry("0", "entryy");
@@ -39,7 +40,7 @@ describe("RespawnList", () => {
     });
 
     describe("getEntry", () => {
-        const respList = new RespawnListLogic();
+        const respList = bottle.container.RespawnListLogic;
 
         it("Should throw a Custom error as entry with id does not exists", () => {
             assert.throws( () => {
@@ -56,7 +57,7 @@ describe("RespawnList", () => {
     });
 
     describe("configuration", () => {
-        const respList = new RespawnListLogic();
+        const respList = bottle.container.RespawnListLogic;
         respList.addEntry("1", "1");
         respList.addOptionsToEntry("1", {
             maxTime: 1,
