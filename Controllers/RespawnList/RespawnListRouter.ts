@@ -15,13 +15,18 @@ export class RespawnListRouter implements IBaseRouter {
 
         respawnListRouter.get("/", [
             (req: Request, res: Response, next: NextFunction) => {
-                this.respawnListController.getAll(req,res,next);
-            }]);
+                this.respawnListController.getEntries(req,res,next);
+        }]);
 
-        respawnListRouter.get("/a",  [
+        respawnListRouter.get("/:entryId",  [
             (req: Request, res: Response, next: NextFunction) => {
-                this.respawnListController.addEntry(req,res,next);
-            }]);
+                this.respawnListController.getEntry(req,res,next);
+        }]);
+
+        respawnListRouter.post("/", [
+            (req: Request, res: Response, next: NextFunction) => {
+                this.respawnListController.createEntry(req,res,next);
+        }]);
         
         return respawnListRouter;
     }

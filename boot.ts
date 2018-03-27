@@ -20,7 +20,7 @@ class Startup {
         });
     }
 
-    private static init(server: express.Server) {
+    private static init(server: express.Application) {
         // process global object available in node.
         // https://nodejs.org/api/process.html
         process.on("unhandledRejection", (error, reason) => {
@@ -40,7 +40,7 @@ class Startup {
             }
         });
     }
-    private static hookRouters(server: express.Server) {
+    private static hookRouters(server: express.Application) {
         let mainRouter = express.Router();
         
         const t = bottle.container.IndexRouter;
@@ -66,6 +66,10 @@ class Startup {
                 res.status(errResponse.status).json(errResponse.error).end();
                 return;
             }
+            // anything that triggers this. needs to be fixed.
+            console.error(err)
+            console.log(err.stack);
+            res.status(500).json("something broke :/").end();
         });
 
         // Handles if Route is not found, sends 404 request.
