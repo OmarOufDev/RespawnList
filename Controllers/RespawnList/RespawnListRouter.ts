@@ -1,6 +1,6 @@
-import { IBaseRouter } from "./IBaseRouter";
+import { IBaseRouter } from "../IBaseRouter";
 import { Router } from "express";
-import { bottle } from "../BaseLayer/BottleManager";
+import { bottle } from "../../BaseLayer/BottleManager";
 import { Request, Response, NextFunction } from "express";
 
 export class RespawnListRouter implements IBaseRouter {

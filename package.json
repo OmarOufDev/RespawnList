@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && mocha --recursive ./test"
+    "test": "npm run build && mocha --recursive ./Tests"
   },
   "repository": {
     "url": "https://github.com/OmarOufDev/RespawnList"

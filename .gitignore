@@ -49,8 +49,8 @@ shared-local-instance.db
 
 dist
 
-// vs code workplace
+# vs code workplace
 *.code-workspace
 
-// respawnList configuration
+# respawnList configuration
 respList.json

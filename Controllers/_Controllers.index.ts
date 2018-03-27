@@ -1,6 +1,7 @@
 export { IBaseRouter } from "./IBaseRouter";
 
 export { IndexRouter } from "./IndexRouter";
-export { RespawnListRouter } from "./RespawnListRouter";
 
-export { RespawnListController } from "./RespawnListController";
+// RespawnList
+export { RespawnListRouter } from "./RespawnList/RespawnListRouter";
+export { RespawnListController } from "./RespawnList/RespawnListController";

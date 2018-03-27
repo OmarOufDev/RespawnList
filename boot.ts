@@ -1,6 +1,7 @@
 import * as bodyParser from "body-parser";
 import * as express from "express";
 import { bottle } from "./BaseLayer/BottleManager"; 
+import { CustomError, ErrorCategory } from "./Errors/CustomError";
 
 class Startup {
 
@@ -60,7 +61,8 @@ class Startup {
             if(err && err instanceof CustomError) {
                 errResponse.status = 500;
                 errResponse.error = "Internal Server Error";
-                console.log(err.ErrorCategory, "\t", err.errorMessage);
+                console.error(`Error Category : ${ErrorCategory[err.ErrorCategory]} \t  Error Message: ${err.errorMessage}`);
+                console.error(err.stack);
                 res.status(errResponse.status).json(errResponse.error).end();
                 return;
             }
@@ -72,9 +74,6 @@ class Startup {
         });
     }
 }
-import { IBaseRouter } from "./Controllers/IBaseRouter";
-import { RespawnListRouter } from "./Controllers/RespawnListRouter";
-import { CustomError } from "./Errors/CustomError";
 
 try {
     Startup.main();

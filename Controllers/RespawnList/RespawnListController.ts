@@ -1,6 +1,6 @@
-import { BaseController } from "./BaseController";
+import { BaseController } from "../BaseController";
 import { Request, Response, NextFunction } from "express";
-import { bottle } from "../BaseLayer/BottleManager";
+import { bottle } from "../../BaseLayer/BottleManager";
 
 export class RespawnListController extends BaseController {
     private respawnListService = bottle.container.RespawnListLogic;
