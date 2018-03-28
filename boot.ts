@@ -2,6 +2,9 @@ import * as bodyParser from "body-parser";
 import * as express from "express";
 import { bottle } from "./BaseLayer/BottleManager"; 
 import { CustomError, ErrorCategory } from "./Errors/CustomError";
+import * as swaggerJSDoc from "swagger-jsdoc";
+import * as ejs from "ejs";
+import * as path from "path";
 
 class Startup {
 
@@ -9,11 +12,16 @@ class Startup {
         const portNumber: number = 3000;
         const server = express();
 
+        // set the view engine to ejs
+        server.engine('html', ejs.renderFile);
+        server.set("view engine", "html");
+
         server.listen(portNumber, (error) => {
             if (error) {
                 console.error("Server failed to startup");
             } else {
                 this.init(server);
+                this.initSwagger(server, portNumber);
                 this.hookRouters(server);
                 console.log(`Server listening on port ${portNumber} `);
             }
@@ -40,6 +48,45 @@ class Startup {
             }
         });
     }
+
+    public static initSwagger(server: express.Application,portNumber: number) {
+
+        const options = {
+            swaggerDefinition: {
+                info: { // API informations (required)
+                title: 'RespawnList API', // Title (required)
+                version: '0.0.0', // Version (required)
+                description: 'List of all publicly available api', // Description (optional)
+                },
+                host: `localhost:${portNumber}`, // Host (optional)
+                basePath: '/', // Base path (optional)
+            },
+            apis: [
+                // routes
+                './Controllers/**/*.js',
+                // add models and other later?
+            ]
+        }
+
+        const swaggerSpec = swaggerJSDoc(options);
+
+        // Serve swagger docs the way you like (Recommendation: swagger-tools)
+        server.get('/swagger.json', function(req, res) {
+            res.setHeader('Content-Type', 'application/json');
+            res.send(swaggerSpec);
+        });
+
+        server.use(express.static(path.join(__dirname + "/Views")));
+        server.set("views", path.join(__dirname + "/Views"));
+
+        server.get(`/api-doc`, function (req, res) {
+            res.render(`./api-doc/index.html`, {
+                url: `http://localhost:${portNumber}/swagger.json`
+            });
+        });
+
+    }
+
     private static hookRouters(server: express.Application) {
         let mainRouter = express.Router();
         
