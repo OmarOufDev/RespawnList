@@ -13,6 +13,19 @@ export class RespawnListRouter implements IBaseRouter {
     get getRouter() {
         const respawnListRouter = Router();
 
+        /**
+         * @swagger
+         *  /RespawnList:
+         *      get:
+         *          tags:
+         *              - RespawnList
+         *          description: gets all entries available.
+         *          produces:
+         *              - application/json
+         *          responses:
+         *              200:
+         *                  description: RespawnListModels array.
+         */
         respawnListRouter.get("/", [
             (req: Request, res: Response, next: NextFunction) => {
                 this.respawnListController.getEntries(req,res,next);
